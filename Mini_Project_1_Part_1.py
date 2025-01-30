@@ -1,20 +1,7 @@
+#Tasks completed - Zeyuan Zhao
+#Web deployment - Boshan Chen
 
-## Mini Project 1 - Part 1: Getting Familiar with Word Embeddings.
-# This assignment introduces students to text similarity measures using cosine similarity and sentence embeddings. 
-# Students will implement and compare different methods for computing and analyzing text similarity using GloVe and Sentence Transformers.
 
-#Learning Objectives
-#By the end of this assignment, students will:
-#Understand how cosine similarity is used to measure text similarity.
-#Learn to encode sentences using GloVe embeddings and Sentence Transformers.
-#Compare the performance of different embedding techniques.
-#Create a Web interface for your model
-
-# Context: In this part, you are going to play around with some commonly used pretrained text embeddings for text search. For example, GloVe is an unsupervised learning algorithm for obtaining vector representations for words. Pretrained on 
-# 2 billion tweets with vocabulary size of 1.2 million. Download from [Stanford NLP](http://nlp.stanford.edu/data/glove.twitter.27B.zip). 
-# Jeffrey Pennington, Richard Socher, and Christopher D. Manning. 2014. *GloVe: Global Vectors for Word Representation*.
-
-### Import necessary libraries: here you will use streamlit library to run a text search demo, please make sure to install it.
 import streamlit as st
 import numpy as np
 import numpy.linalg as la
@@ -52,20 +39,21 @@ def get_model_id_gdrive(model_type):
 
 
 def download_glove_embeddings_gdrive(model_type):
-    # Get glove embeddings from google drive
-    word_index_id, embeddings_id = get_model_id_gdrive(model_type)
+    if model_type != "100d":
+        # Get glove embeddings from google drive
+        word_index_id, embeddings_id = get_model_id_gdrive(model_type)
 
-    # Use gdown to get files from google drive
-    embeddings_temp = "embeddings_" + str(model_type) + "_temp.npy"
-    word_index_temp = "word_index_dict_" + str(model_type) + "_temp.pkl"
+        # Use gdown to get files from google drive
+        embeddings_temp = "embeddings_" + str(model_type) + "_temp.npy"
+        word_index_temp = "word_index_dict_" + str(model_type) + "_temp.pkl"
 
-    # Download word_index pickle file
-    print("Downloading word index dictionary....\n")
-    gdown.download(id=word_index_id, output=word_index_temp, quiet=False)
+        # Download word_index pickle file
+        print("Downloading word index dictionary....\n")
+        gdown.download(id=word_index_id, output=word_index_temp, quiet=False)
 
-    # Download embeddings numpy file
-    print("Donwloading embedings...\n\n")
-    gdown.download(id=embeddings_id, output=embeddings_temp, quiet=False)
+        # Download embeddings numpy file
+        print("Donwloading embedings...\n\n")
+        gdown.download(id=embeddings_id, output=embeddings_temp, quiet=False)
 
 
 # @st.cache_data()
@@ -332,7 +320,7 @@ if __name__ == "__main__":
     """
     )
 
-    model_type = st.sidebar.selectbox("Choose the model", ("25d", "50d", "100d"), index=1)
+    model_type = st.sidebar.selectbox("Choose the model", ("25d", "50d"), index=1)
 
 
     st.title("Search Based Retrieval Demo")
@@ -421,5 +409,5 @@ if __name__ == "__main__":
 
         st.write("")
         st.write(
-            "Demo developed by [Your Name]"
+            "Demo developed by [Zeyuan Zhao/Boshan Chen]"
         )
